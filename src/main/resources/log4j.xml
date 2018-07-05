@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!-- 控制台 -->
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%15t] [%30.30C{1}] [%3L] %6p - %m %n"/>
+            <!-- param name="ConversionPattern" value="%d [%20t] [%7r] [%45C{1}] [%25M] [%3L] %6p - %30.30c - %m %n" / -->
+        </layout>
+    </appender>
+
+    <!-- 全日志 -->
+    <appender name="LogFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="/home/pengfeng21/supersecfightTest/service.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'_'yyyy-MM-dd'.log'"/>
+        <param name="maxFileSize" value="100MB" />
+        <param name="maxBackupIndex" value="5" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%15t] [%30.30C{1}] [%3L] %6p - %m %n"/>
+        </layout>
+    </appender>
+
+    <root>
+        <priority value ="INFO" />
+        <appender-ref ref="LogFile"/>
+    </root>
+
+    <logger name="org.apache.thrift.transport">
+        <level value="FATAL"/>
+        <appender-ref ref="LogFile"/>
+    </logger>
+
+    <logger name="com.datastax.driver.core">
+        <level value="FATAL"/>
+        <appender-ref ref="LogFile"/>
+    </logger>
+
+    <logger name="com.jd.jsf">
+        <level value="FATAL"/>
+        <appender-ref ref="LogFile"/>
+    </logger>
+
+</log4j:configuration>
